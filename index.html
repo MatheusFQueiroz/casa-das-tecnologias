@@ -20,6 +20,7 @@
   <button class="marca" id="btInicio" aria-label="Ir para a casa"><span><b>A casa das máquinas</b><small>O que precisa de energia?</small></span></button>
   <button class="bt-barra" id="btMapa"><span>Casa</span></button>
   <button class="bt-barra" id="btAlbum"><span>Álbum</span></button>
+  <button class="bt-barra" id="btMinha"><span>Minha casa</span></button>
   <button class="bt-barra" id="btAjustes" aria-label="Ajustes"><span>Ajustes</span></button>
 </header>
 
@@ -30,20 +31,22 @@
     <div class="jogo-topo">
       <button class="bt-voltar" id="btVoltar">Casa</button>
       <div class="chip" id="chipComodo"></div>
-      <div class="passos" id="passos" aria-hidden="true"></div>
+      <div class="previa" id="previa" aria-hidden="true"></div>
       <button class="bt-redondo" id="btOuvir" aria-label="Ouvir a instrução"></button>
     </div>
     <div class="pergunta" id="pergunta" aria-live="polite"></div>
     <div class="contador" id="contador"></div>
-    <div class="grade" id="grade"></div>
+    <div class="cena" id="cena"></div>
+    <div class="caixas oculto" id="caixas"></div>
     <div class="aviso" id="aviso" aria-live="polite"></div>
   </section>
 
   <section class="tela oculto" id="album"></section>
+  <section class="tela oculto" id="minha"></section>
   <section class="tela oculto" id="ajustes"></section>
 </main>
 
-<div class="veu oculto" id="escolha" role="dialog" aria-modal="true"></div>
+<div class="veu oculto" id="ritual" role="dialog" aria-modal="true"></div>
 <div class="veu oculto" id="premio" role="dialog" aria-modal="true" aria-labelledby="premioTit"></div>
 
 <script src="icones.js"></script>
