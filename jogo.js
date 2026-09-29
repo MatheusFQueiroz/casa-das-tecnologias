@@ -43,7 +43,11 @@ var O={
  arvore:['tree-one',C.folha,'árvore',0], luzquintal:['light',C.amarelo,'luz do quintal','t'], drone:['drone',C.ceu,'drone','p'], cachorro:['dog',C.madeira,'cachorro',0], flor:['geometric-flowers',C.rosa,'vaso de flor',0],
  mangueira:['water',C.ceu,'mangueira',0], projetor:['projector',C.laranja,'projetor','t'], livroaberto:['book-open',C.azul,'livro',0], microfone:['microphone',C.roxo,'microfone sem fio','p'], tablet:['ipad',C.roxo,'tablet','p'],
  cadeira:['chair',C.madeira,'cadeira',0], semaforo:['semaforo',C.cinza,'semáforo','t'], poste:['lampada',C.amarelo,'poste de luz','t'], placa:['road-sign',C.folha,'placa',0], maquininha:['maquininha',C.verde,'máquina de cartão','p'],
- camera:['surveillance-cameras',C.cinza,'câmera de segurança','t'], banco:['sofa-two',C.madeira,'banco da praça',0], lixeira:['delete',C.verde,'lixeira',0]
+ camera:['surveillance-cameras',C.cinza,'câmera de segurança','t'], banco:['sofa-two',C.madeira,'banco da praça',0], lixeira:['delete',C.verde,'lixeira',0],
+ campainha:['remind',C.amarelo,'campainha','t'], chave:['key-two',C.amarelo,'chave',0], guardachuva:['umbrella',C.azul,'guarda-chuva',0], interfone:['phone',C.cinza,'interfone','t'], retrato:['picture',C.ceu,'porta-retrato',0], tapete:['towel',C.tijolo,'tapete',0],
+ termometro:['thermometer',C.tijolo,'termômetro digital','p'], estetoscopio:['stethoscope',C.tijolo,'estetoscópio',0], remedio:['pill',C.rosa,'remédio',0], maca:['hospital-bed',C.ceu,'maca',0], kit:['first-aid-kit',C.tijolo,'caixa de curativos',0], cadeirarodas:['wheelchair',C.azul,'cadeira de rodas',0], cardio:['heartbeat',C.verde,'monitor do coração','t'],
+ robo:['robot-one',C.ceu,'robô de brinquedo','p'], cavalinho:['rocking-horse',C.madeira,'cavalinho de balanço',0], quebra:['puzzle',C.roxo,'quebra-cabeça',0], carrinho:['car',C.tijolo,'carrinho de controle remoto','p'], portatil:['game-console-one',C.roxo,'videogame portátil','p'], trombeta:['trumpet',C.amarelo,'trombeta de brinquedo',0], mobile:['baby-mobile',C.rosa,'móbile do bebê',0], pinwheel:['pinwheel',C.folha,'cata-vento',0],
+ sacola:['shopping-bag',C.laranja,'sacola',0], cesta:['vegetable-basket',C.verde,'cesta de frutas',0], leitor:['scan-code',C.cinza,'leitor de código','t'], cartao:['bank-card',C.azul,'cartão',0], cafeteira:['coffee-machine',C.madeira,'máquina de café','t'], carrinhocompras:['shopping-cart',C.verde,'carrinho de compras',0], ticket:['ticket',C.amarelo,'nota fiscal',0], sorvete:['icecream',C.rosa,'sorvete',0]
 };
 function coisa(k){ return O[k]; }
 
@@ -61,23 +65,38 @@ var MUNDOS=[
   {t:'ache',nome:'Quarto',ic:'single-bed',itens:['despertador','cama','celular','camiseta','notebook','mochila','meia','abajur'],f:['alarm-clock',C.tijolo,'Despertador']},
   {t:'ache',nome:'Banheiro',ic:'shower-head',itens:['chuveiro','espelho','sabonete','toalha','secador','escova','lampada','pente'],f:['hair-dryer',C.rosa,'Secador']},
   {t:'ache',nome:'Lavanderia',ic:'washing-machine',itens:['maquinalavar','sabao','luva','ferro','calca','aspirador','tesoura','blusa'],f:['washing-machine',C.ceu,'Máquina de lavar']},
-  {t:'ache',nome:'Escritório',ic:'computer',itens:['computador','impressora','lapis','caderno','roteador','calculadora','mouse','regua','clips','fone'],f:['computer',C.azul,'Computador']}]},
+  {t:'ache',nome:'Escritório',ic:'computer',itens:['computador','impressora','lapis','caderno','roteador','calculadora','mouse','regua','clips','fone'],f:['computer',C.azul,'Computador']},
+  {t:'ache',nome:'Entrada',ic:'remind',itens:['campainha','chave','guardachuva','interfone','retrato','tapete','lampada','mochila'],f:['remind',C.amarelo,'Campainha']},
+  {t:'ache',nome:'Quarto de brinquedos',ic:'robot-one',itens:['robo','cavalinho','quebra','carrinho','portatil','trombeta','ursinho','bola','mobile','pinwheel'],f:['robot-one',C.ceu,'Robô']}]},
  {nome:'Fora de casa',ic:['tree-one',C.folha],cor:'#E3F2D3',txt:'Garagem, quintal, escola e rua também têm máquinas.',fases:[
   {t:'ache',nome:'Garagem',ic:'electric-drill',itens:['furadeira','bicicleta','martelo','lanterna','capacete','bola','radio','skate'],f:['electric-drill',C.laranja,'Furadeira']},
   {t:'ache',nome:'Quintal',ic:'swing',itens:['balanco','pa','arvore','luzquintal','drone','cachorro','flor','mangueira','pneu','bola'],f:['drone',C.ceu,'Drone']},
   {t:'ache',nome:'Sala de aula',ic:'school',itens:['projetor','livroaberto','microfone','lapis','tablet','mochila','relogio','cadeira','impressora','regua'],f:['projector',C.laranja,'Projetor']},
-  {t:'ache',nome:'Rua',ic:'road-sign',itens:['semaforo','poste','placa','arvore','maquininha','bicicleta','camera','banco','lixeira','cachorro'],f:['semaforo',C.cinza,'Semáforo']}]},
+  {t:'ache',nome:'Rua',ic:'road-sign',itens:['semaforo','poste','placa','arvore','maquininha','bicicleta','camera','banco','lixeira','cachorro'],f:['semaforo',C.cinza,'Semáforo']},
+  {t:'ache',nome:'Mercado',ic:'shopping-cart',itens:['leitor','sacola','geladeira','cesta','maquininha','cartao','cafeteira','carrinhocompras','ticket','lampada'],f:['scan-code',C.cinza,'Leitor de código']},
+  {t:'ache',nome:'Posto de saúde',ic:'stethoscope',itens:['termometro','estetoscopio','remedio','maca','kit','cadeirarodas','cardio','computador'],f:['stethoscope',C.tijolo,'Estetoscópio']}]},
  {nome:'Tomada ou pilha?',ic:['plug',C.tijolo],cor:'#FFDAD3',txt:'Algumas máquinas ficam presas na tomada. Outras andam com pilha ou bateria.',fases:[
   {t:'classifica',nome:'Na cozinha e na sala',ic:'plug',itens:['geladeira','controle','microondas','relogio','tv','lanterna'],f:['plug',C.tijolo,'Tomada']},
   {t:'classifica',nome:'No quarto',ic:'battery-full',itens:['celular','abajur','despertador','ventilador','notebook','camiseta'],f:['battery-full',C.verde,'Pilha']},
   {t:'classifica',nome:'No escritório',ic:'computer',itens:['computador','mouse','impressora','calculadora','caderno','fone'],f:['mouse',C.cinza,'Mouse sem fio']},
   {t:'classifica',nome:'Lá fora',ic:'road-sign',itens:['semaforo','drone','furadeira','radio','maquininha','bicicleta'],f:['radio',C.laranja,'Rádio']},
+  {t:'classifica',nome:'Brinquedos',ic:'robot-one',itens:['robo','cavalinho','carrinho','quebra','portatil','trombeta'],f:['gamepad',C.roxo,'Videogame']},
+  {t:'classifica',nome:'No mercado e no posto',ic:'stethoscope',itens:['leitor','termometro','sacola','cardio','maquininha','remedio'],f:['thermometer',C.tijolo,'Termômetro']},
   {t:'classifica',nome:'Mistura de tudo',ic:'magic',itens:['chuveiro','tablet','maquinalavar','microfone','balanca','bola','secador','luzquintal'],f:['magic',C.roxo,'Mistura']}]},
  {nome:'Sem energia',ic:['seedling',C.verde],cor:'#D6F0EC',txt:'Ao contrário: ache tudo que funciona sem tomada e sem pilha.',fases:[
   {t:'inverso',nome:'Cozinha',ic:'cooking-pot',itens:['geladeira','maca','microondas','colher','pao','chaleira','panela','torradeira'],f:['apple',C.tijolo,'Maçã']},
   {t:'inverso',nome:'Quarto e banheiro',ic:'single-bed',itens:['cama','celular','camiseta','secador','escova','abajur','pente','lanterna'],f:['escova',C.azul,'Escova de dentes']},
   {t:'inverso',nome:'Escola',ic:'school',itens:['projetor','lapis','tablet','livroaberto','cadeira','microfone','regua','mochila'],f:['pencil',C.amarelo,'Lápis']},
-  {t:'inverso',nome:'Quintal e rua',ic:'tree-one',itens:['drone','arvore','semaforo','bola','bicicleta','camera','pa','poste'],f:['bike',C.tijolo,'Bicicleta']}]}
+  {t:'inverso',nome:'Quintal e rua',ic:'tree-one',itens:['drone','arvore','semaforo','bola','bicicleta','camera','pa','poste'],f:['bike',C.tijolo,'Bicicleta']},
+  {t:'inverso',nome:'Lavanderia e escritório',ic:'washing-machine',itens:['maquinalavar','luva','ferro','tesoura','impressora','lapis','roteador','regua'],f:['scissors',C.tijolo,'Tesoura']},
+  {t:'inverso',nome:'Brinquedos e mercado',ic:'shopping-cart',itens:['robo','quebra','carrinho','cavalinho','leitor','sacola','cafeteira','cesta'],f:['puzzle',C.roxo,'Quebra-cabeça']}]},
+ {nome:'Detetive da energia',ic:['search',C.roxo],cor:'#E9E1F7',txt:'Só uma das quatro é diferente. Encontre!',fases:[
+  {t:'inverso',nome:'Qual funciona sem energia?',ic:'search',itens:['tv','geladeira','sofa','videogame'],f:['sofa',C.verde,'Sofá']},
+  {t:'ache',nome:'Qual precisa de energia?',ic:'search',itens:['pao','leite','chaleira','maca'],f:['kettle',C.tijolo,'Chaleira']},
+  {t:'inverso',nome:'Qual funciona sem energia?',ic:'search',itens:['celular','lanterna','notebook','mochila'],f:['backpack',C.verde,'Mochila']},
+  {t:'ache',nome:'Qual precisa de energia?',ic:'search',itens:['bola','skate','radio','capacete'],f:['radio',C.laranja,'Rádio']},
+  {t:'inverso',nome:'Qual funciona sem energia?',ic:'search',itens:['semaforo','camera','poste','placa'],f:['road-sign',C.folha,'Placa']},
+  {t:'ache',nome:'Qual precisa de energia?',ic:'search',itens:['cavalinho','quebra','robo','trombeta'],f:['robot-one',C.ceu,'Robô detetive']}]}
 ];
 var FASES=[]; MUNDOS.forEach(function(m,mi){ m.fases.forEach(function(f,fi){ f.m=mi; f.i=fi; FASES.push(f); }); });
 var ELOGIOS=['Muito bem!','Você conhece a casa toda!','Isso mesmo!','Boa!','Mandou bem!'];
@@ -170,11 +189,11 @@ function joga(i){
   m.fases.forEach(function(f,fi){ var d=el('i'); if(est.feitas[FASES.indexOf(f)]) d.className='f'; if(fi===L.i) d.className='a'; ps.appendChild(d); });
   $('aviso').innerHTML='';
   var perg=$('pergunta');
-  if(L.t==='ache'){ alvo=L.itens.filter(function(k){ return O[k][3]; }).length; perg.innerHTML='<b>'+L.nome+'</b><span>Toque em tudo que funciona com <em>tomada</em>, <em>pilha</em> ou <em>bateria</em>.</span>'; }
-  else if(L.t==='inverso'){ alvo=L.itens.filter(function(k){ return !O[k][3]; }).length; perg.innerHTML='<b>'+L.nome+'</b><span>Ao contrário: toque em tudo que funciona <em>sem energia</em> nenhuma.</span>'; }
+  if(L.t==='ache'){ alvo=L.itens.filter(function(k){ return O[k][3]; }).length; perg.innerHTML='<b>'+L.nome+'</b><span>'+(alvo===1?'Três funcionam só com a gente. Toque na única que precisa de <em>tomada</em>, <em>pilha</em> ou <em>bateria</em>.':'Toque em tudo que funciona com <em>tomada</em>, <em>pilha</em> ou <em>bateria</em>.')+'</span>'; }
+  else if(L.t==='inverso'){ alvo=L.itens.filter(function(k){ return !O[k][3]; }).length; perg.innerHTML='<b>'+L.nome+'</b><span>'+(alvo===1?'Três precisam de energia. Toque na única que funciona <em>sem energia</em> nenhuma.':'Ao contrário: toque em tudo que funciona <em>sem energia</em> nenhuma.')+'</span>'; }
   else { alvo=L.itens.length; perg.innerHTML='<b>'+L.nome+'</b><span>Toque em cada coisa e diga: <em>tomada</em>, <em>pilha ou bateria</em>, ou <em>nenhuma</em>?</span>'; }
   contador();
-  var gr=$('grade'); gr.innerHTML=''; gr.className='grade'+(L.itens.length>8?' dez':'');
+  var gr=$('grade'); gr.innerHTML=''; gr.className='grade'+(L.itens.length>8?' dez':L.itens.length<=4?' quatro':'');
   L.itens.slice().sort(function(){ return Math.random()-.5; }).forEach(function(k,idx){
     var o=O[k],b=el('button','coisa',icone(o[0],o[1])); b.appendChild(txt('span','t',o[2])); b.style.animationDelay=(idx*.05)+'s'; b._k=k;
     b.setAttribute('aria-label',o[2]); b.onclick=function(){ toca(b); }; gr.appendChild(b); cards.push(b);
@@ -239,7 +258,7 @@ function conclui(){
   var p=$('premio'); p.innerHTML='';
   var c=el('div','cartao'); c.style.setProperty('--cor',m.cor);
   c.appendChild(txt('h2',null,ELOGIOS[Math.floor(Math.random()*ELOGIOS.length)])); c.lastChild.id='premioTit';
-  var resumo=L.t==='ache'?'Na '+L.nome.toLowerCase()+' você achou as '+alvo+' máquinas que usam energia.':L.t==='inverso'?'Você achou as '+alvo+' coisas que funcionam sem energia nenhuma.':'Você disse certinho como cada uma das '+alvo+' coisas funciona.';
+  var resumo=L.t==='ache'?(alvo===1?'Você achou a única que precisa de energia.':'Em "'+L.nome+'" você achou as '+alvo+' máquinas que usam energia.'):L.t==='inverso'?(alvo===1?'Você achou a única que funciona sem energia.':'Você achou as '+alvo+' coisas que funcionam sem energia nenhuma.'):'Você disse certinho como cada uma das '+alvo+' coisas funciona.';
   c.appendChild(txt('p','explica',resumo));
   c.appendChild(el('div','fig-grande','<div class="fg-in" style="--cor-selo:'+L.f[1]+'">'+icone(L.f[0],L.f[1])+'</div>'));
   c.appendChild(el('div','nome-fig',(novo?'Figurinha nova: ':'Você já tem: ')+'<b></b>')); c.lastChild.lastChild.textContent=L.f[2];
