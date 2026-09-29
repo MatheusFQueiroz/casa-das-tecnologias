@@ -1,36 +1,3 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A CASA DAS MÁQUINAS</title><style>*{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;overflow:hidden}
-body{font-family:"Trebuchet MS",Verdana,sans-serif;color:#2A3081;background:#F4F5FB;display:flex;flex-direction:column;user-select:none}
-header{background:#2A3081;color:#fff;padding:12px 20px;display:flex;align-items:center;gap:14px;flex-shrink:0}
-header h1{font-size:24px}.chip{font-size:20px;font-weight:bold;border-radius:12px;padding:8px 16px}
-#c1{background:#fff;color:#2A3081;margin-left:auto}#c2{background:#FFD900;color:#2A3081}
-#palco{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:16px}
-#aviso{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:24px;font-weight:bold;padding:12px 26px;border-radius:14px;display:none;background:#E8590C;color:#fff}
-#festa{position:absolute;inset:0;background:rgba(255,255,255,.97);display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:20px}
-#festa .tit{font-size:52px;font-weight:bold}#festa .sub{font-size:26px;color:#444;max-width:780px;line-height:1.4}
-#festa button{font:inherit;font-size:26px;font-weight:bold;padding:15px 34px;border:none;border-radius:14px;background:#2F9E44;color:#fff;cursor:pointer}#comodo{font-size:34px;font-weight:bold}#dica{font-size:21px;color:#555}
-#grade{display:grid;grid-template-columns:repeat(4,170px);gap:16px}
-.it{height:150px;border-radius:20px;background:#fff;border:5px solid #C2C7E0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:transform .15s}
-.it:hover{transform:scale(1.05)}.it .e{font-size:66px;line-height:1}.it .t{font-size:17px;font-weight:bold;min-height:22px;text-align:center;padding:0 6px}
-.it.ok{background:#FFF3B0;border-color:#FFB400;box-shadow:0 0 18px #FFD900}.it.nao{animation:tr .3s}
-@keyframes tr{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}</style></head><body>
-<header><h1>A CASA DAS MÁQUINAS</h1><div class="chip" id="c1">—</div><div class="chip" id="c2">⭐ 0</div></header>
-<div id="palco"><div id="comodo">—</div><div id="dica">Clique em tudo que funciona com TOMADA ou PILHA!</div><div id="grade"></div><div id="aviso"></div><div id="festa"></div></div>
-<script>(function(){var $=function(i){return document.getElementById(i)};
-function aviso(t){var a=$('aviso');a.textContent=t;a.style.display='block';clearTimeout(a._t);a._t=setTimeout(function(){a.style.display='none'},1500);}
-function festa(tit,sub,bt,fn){var f=$('festa');f.innerHTML='<div class="tit">'+tit+'</div><div class="sub">'+sub+'</div><button id="btF">'+bt+'</button>';f.style.display='flex';$('btF').onclick=fn;}
-var C=[{"n": "COZINHA", "e": "🍳", "it": [["🧊", "geladeira", 1], ["♨️", "micro-ondas", 1], ["🍎", "maçã", 0], ["🥄", "colher", 0], ["💡", "lâmpada", 1], ["🍞", "pão", 0], ["🥛", "leite", 0], ["🫖", "chaleira elétrica", 1]]}, {"n": "SALA", "e": "🛋️", "it": [["📺", "televisão", 1], ["🛋️", "sofá", 0], ["🎮", "videogame", 1], ["🪴", "planta", 0], ["📚", "livros", 0], ["🔊", "caixa de som", 1], ["🧸", "ursinho", 0], ["🕰️", "relógio de pilha", 1]]}, {"n": "QUARTO", "e": "🛏️", "it": [["⏰", "despertador", 1], ["🛏️", "cama", 0], ["📱", "celular", 1], ["👕", "camiseta", 0], ["💻", "notebook", 1], ["🎒", "mochila", 0], ["🧦", "meia", 0], ["💡", "abajur", 1]]}, {"n": "BANHEIRO", "e": "🛁", "it": [["🚿", "chuveiro elétrico", 1], ["🪞", "espelho", 0], ["🧼", "sabonete", 0], ["🧻", "papel", 0], ["💨", "secador de cabelo", 1], ["🪥", "escova de dentes", 0], ["💡", "lâmpada", 1], ["🧽", "esponja", 0]]}, {"n": "LAVANDERIA", "e": "🧺", "it": [["🌀", "máquina de lavar", 1], ["🧺", "cesto", 0], ["🧴", "sabão", 0], ["🧤", "luva", 0], ["🪣", "balde", 0], ["🔌", "ferro de passar", 1], ["👖", "calça", 0], ["🌬️", "ventilador", 1]]}],ci=0,est=0,erros=0;
-function monta(){var c=C[ci];erros=0;$('festa').style.display='none';$('comodo').textContent=c.e+'  '+c.n;
- var g=$('grade');g.innerHTML='';c.achou=0;c.tot=c.it.filter(function(x){return x[2]}).length;
- c.it.slice().sort(function(){return Math.random()-.5}).forEach(function(x){var d=document.createElement('div');d.className='it';
-  d.innerHTML='<div class="e">'+x[0]+'</div><div class="t"></div>';
-  d.onclick=function(){if(d.classList.contains('ok'))return;
-   if(x[2]){d.classList.add('ok');d.querySelector('.t').textContent=x[1];c.achou++;placar();
-     if(c.achou===c.tot){var g2=erros===0?3:(erros<3?2:1);est+=g2;$('c2').textContent='⭐ '+est;
-       setTimeout(function(){var ult=ci===C.length-1;
-        festa('🎉 ACHOU TODAS!','Na '+c.n+' você achou as '+c.tot+' máquinas.<br>'+'⭐'.repeat(g2),ult?'VER O RESULTADO':'PRÓXIMO CÔMODO →',
-         function(){if(ult){festa('🏠 CASA COMPLETA!','Você achou todas as máquinas da casa e ganhou <b>'+est+'</b> estrelas!','JOGAR DE NOVO',function(){ci=0;est=0;$('c2').textContent='⭐ 0';monta();});}else{ci++;monta();}});},500);}}
-   else{erros++;d.classList.remove('nao');void d.offsetWidth;d.classList.add('nao');d.querySelector('.t').textContent=x[1];aviso('Isso não usa tomada nem pilha!');}};
-  g.appendChild(d);});placar();}
-function placar(){var c=C[ci];$('c1').textContent='Cômodo '+(ci+1)+' de '+C.length+' · achou '+c.achou+' de '+c.tot;}
-window.__t={C:C,monta:monta,get ci(){return ci},set ci(v){ci=v},get est(){return est}};monta();})();</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=./"><link rel="canonical" href="https://casa-das-tecnologias.cliick.dev/"><title>A casa das máquinas</title></head>
+<body><p>O jogo mudou de endereço: <a href="./">casa-das-tecnologias.cliick.dev</a></p></body></html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#DDF1FA">
+<title>A casa das máquinas</title>
+<meta name="description" content="Jogo para crianças: em cada cômodo da casa, ache tudo que funciona com tomada, pilha ou bateria, e descubra o que funciona sem energia nenhuma.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fontes/fredoka-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fontes/nunito-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div class="fundo" aria-hidden="true"></div>
+<span class="nuvem" aria-hidden="true"></span><span class="nuvem n2" aria-hidden="true"></span>
+
+<header class="barra">
+  <button class="marca" id="btInicio" aria-label="Ir para a casa"><span><b>A casa das máquinas</b><small>O que precisa de energia?</small></span></button>
+  <button class="bt-barra" id="btMapa"><span>Casa</span></button>
+  <button class="bt-barra" id="btAlbum"><span>Álbum</span></button>
+  <button class="bt-barra" id="btAjustes" aria-label="Ajustes"><span>Ajustes</span></button>
+</header>
+
+<main>
+  <section class="tela" id="mapa"></section>
+
+  <section class="tela oculto" id="jogo">
+    <div class="jogo-topo">
+      <button class="bt-voltar" id="btVoltar">Casa</button>
+      <div class="chip" id="chipComodo"></div>
+      <div class="passos" id="passos" aria-hidden="true"></div>
+      <button class="bt-redondo" id="btOuvir" aria-label="Ouvir a instrução"></button>
+    </div>
+    <div class="pergunta" id="pergunta" aria-live="polite"></div>
+    <div class="contador" id="contador"></div>
+    <div class="grade" id="grade"></div>
+    <div class="aviso" id="aviso" aria-live="polite"></div>
+  </section>
+
+  <section class="tela oculto" id="album"></section>
+  <section class="tela oculto" id="ajustes"></section>
+</main>
+
+<div class="veu oculto" id="escolha" role="dialog" aria-modal="true"></div>
+<div class="veu oculto" id="premio" role="dialog" aria-modal="true" aria-labelledby="premioTit"></div>
+
+<script src="icones.js"></script>
+<script src="jogo.js"></script>
+</body>
+</html>
