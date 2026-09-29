@@ -19,11 +19,9 @@ function silhueta(nome){
 }
 var CHECK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 var RAIO='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="currentColor"/></svg>';
+var ZZZ='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h7l-7 8h7M13 4h6l-6 7h6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 var C={laranja:'#F4A261',tijolo:'#E76F51',verde:'#2A9D8F',azul:'#457B9D',amarelo:'#F9C74F',rosa:'#F28482',roxo:'#9B7EDE',madeira:'#B08968',cinza:'#A8A29E',ceu:'#8ECAE6',folha:'#80B918'};
 
-/* ======================================================================
-   Coisas da casa: [ícone, cor, nome, energia]  energia: 't' tomada · 'p' pilha ou bateria · 0 nenhuma
-   ====================================================================== */
 var O={
  geladeira:['refrigerator',C.ceu,'geladeira','t'], microondas:['microwave-oven',C.cinza,'micro-ondas','t'], maca:['apple',C.tijolo,'maçã',0], colher:['spoon',C.cinza,'colher',0],
  lampada:['lampada',C.amarelo,'lâmpada','t'], pao:['bread',C.laranja,'pão',0], leite:['milk',C.ceu,'leite',0], chaleira:['kettle',C.tijolo,'chaleira elétrica','t'],
@@ -98,22 +96,50 @@ var MUNDOS=[
   {t:'inverso',nome:'Qual funciona sem energia?',ic:'search',itens:['semaforo','camera','poste','placa'],f:['road-sign',C.folha,'Placa']},
   {t:'ache',nome:'Qual precisa de energia?',ic:'search',itens:['cavalinho','quebra','robo','trombeta'],f:['robot-one',C.ceu,'Robô detetive']}]}
 ];
+
+
+/* ---------- fases novas: Boa noite, casa (apagar o que não precisa) e Quem sou eu? (charadas) ---------- */
+var FICA_TXT={geladeira:'A geladeira fica ligada a noite toda, senão a comida estraga!',relogio:'O relógio fica: ele marca a hora até de madrugada.',despertador:'O despertador fica ligado: é ele que acorda a gente amanhã!',
+  campainha:'A campainha fica: se alguém chegar, ela precisa tocar.',camera:'A câmera fica acordada cuidando da casa à noite.',roteador:'O roteador pode ficar: ele gasta pouquinho e o celular avisa se alguém ligar.'};
+MUNDOS.push({nome:'Boa noite, casa',ic:['moon',C.roxo],cor:'#E4DDF5',selo:'#9B7EDE',txt:'Hora de dormir! Apague o que não precisa ficar ligado. Mas cuidado: algumas máquinas precisam ficar acordadas.',fases:[
+  {t:'dormir',nome:'Sala e cozinha',ic:'moon',itens:['tv','videogame','caixasom','lampada','geladeira','relogio'],fica:['geladeira','relogio'],f:['moon',C.roxo,'Lua']},
+  {t:'dormir',nome:'Quarto',ic:'single-bed',itens:['abajur','notebook','ventilador','tablet','despertador','portatil'],fica:['despertador'],f:['single-bed',C.azul,'Caminha']},
+  {t:'dormir',nome:'A casa toda',ic:'home',itens:['tv','computador','luzquintal','geladeira','campainha','aspirador','secador','camera'],fica:['geladeira','campainha','camera'],f:['home',C.laranja,'Casa dormindo']}]});
+MUNDOS.push({nome:'Quem sou eu?',ic:['thinking-problem',C.amarelo],cor:'#FFF1C9',selo:'#F9C74F',txt:'Leia a pista e descubra a máquina.',fases:[
+  {t:'charada',nome:'Quem sou eu?',ic:'thinking-problem',pista:'Moro na cozinha, sou fria por dentro e fico ligada o dia todo.',itens:['geladeira','microondas','sofa','lanterna'],certa:'geladeira',f:['refrigerator',C.ceu,'Detetive gelado']},
+  {t:'charada',nome:'Quem sou eu?',ic:'thinking-problem',pista:'Ando no seu bolso, uso bateria e faço ligações.',itens:['celular','tv','computador','radio'],certa:'celular',f:['iphone',C.azul,'Detetive do bolso']},
+  {t:'charada',nome:'Quem sou eu?',ic:'thinking-problem',pista:'Giro, giro e faço vento. Fico preso na tomada.',itens:['ventilador','secador','drone','aspirador'],certa:'ventilador',f:['ventilador',C.ceu,'Detetive do vento']},
+  {t:'charada',nome:'Quem sou eu?',ic:'thinking-problem',pista:'Toco bem cedo para acordar você. Uso pilha.',itens:['despertador','relogio','campainha','caixasom'],certa:'despertador',f:['alarm-clock',C.tijolo,'Detetive do sono']},
+  {t:'charada',nome:'Quem sou eu?',ic:'thinking-problem',pista:'Não uso energia nenhuma, mas levo você para longe. É só pedalar.',itens:['bicicleta','skate','carrinho','drone'],certa:'bicicleta',f:['bike',C.tijolo,'Detetive do pedal']},
+  {t:'charada',nome:'Quem sou eu?',ic:'thinking-problem',pista:'Fico na rua, tenho três luzes e mando os carros pararem.',itens:['semaforo','poste','camera','placa'],certa:'semaforo',f:['semaforo',C.cinza,'Detetive da rua']},
+  {t:'charada',nome:'Quem sou eu?',ic:'thinking-problem',pista:'Esquento a água e apito quando ela ferve.',itens:['chaleira','cafeteira','microondas','torradeira'],certa:'chaleira',f:['kettle',C.tijolo,'Detetive do apito']},
+  {t:'charada',nome:'Quem sou eu?',ic:'thinking-problem',pista:'Voo bem alto com bateria e tiro fotos lá de cima.',itens:['drone','camera','celular','robo'],certa:'drone',f:['drone',C.ceu,'Detetive do céu']}]});
 var FASES=[]; MUNDOS.forEach(function(m,mi){ m.fases.forEach(function(f,fi){ f.m=mi; f.i=fi; FASES.push(f); }); });
 var ELOGIOS=['Muito bem!','Você conhece a casa toda!','Isso mesmo!','Boa!','Mandou bem!'];
 var NOME_E={t:'tomada',p:'pilha ou bateria',0:'nenhuma'};
+/* como cada máquina "liga": giro, vapor, tela, luz ou som (o resto pisca uma luzinha) */
+var FX={};
+[['giro',['ventilador','maquinalavar','drone','liquidificador']],['vapor',['chaleira','cafeteira','ferro','microondas','torradeira','secador','chuveiro']],
+ ['tela',['tv','computador','notebook','celular','tablet','portatil','videogame','cardio','leitor','calculadora','maquininha','termometro','balanca','projetor']],
+ ['luz',['lampada','abajur','luzquintal','poste','lanterna','semaforo']],
+ ['som',['caixasom','radio','microfone','campainha','despertador','interfone','fone','relogio','robo','carrinho']]].forEach(function(g){ g[1].forEach(function(k){ FX[k]=g[0]; }); });
+var TOM_FX={giro:[220,220,220],vapor:[330,392],tela:[523,659],luz:[880],som:[440,660,440],led:[494]};
+/* lugares das coisas dentro da cena (x%, y%) */
+var LUGARES=[[9,24],[27,18],[46,22],[65,17],[86,24],[12,60],[30,66],[50,60],[70,66],[89,60],[40,44],[60,44]];
+var LUGARES_MOB=[[18,15],[50,13],[82,15],[18,39],[50,37],[82,39],[18,63],[50,61],[82,63],[34,86],[66,86],[50,86]];
 
 /* ======================================================================
    Memória e ajustes
    ====================================================================== */
-var CHAVE='casa-v2';
-var est={feitas:{},som:false,anim:true,livre:false};
-try{ var sv=JSON.parse(localStorage.getItem(CHAVE)||'null'); if(sv) for(var k in sv) est[k]=sv[k]; }catch(e){}
-try{ if(!localStorage.getItem(CHAVE)&&window.matchMedia('(prefers-reduced-motion: reduce)').matches) est.anim=false; }catch(e){}
+var CHAVE='casa-v3';
+var est={feitas:{},som:false,anim:true,livre:false,turma:false,minha:null};
+try{ var sv=JSON.parse(localStorage.getItem(CHAVE)||localStorage.getItem('casa-v2')||'null'); if(sv) for(var k in sv) est[k]=sv[k]; }catch(e){}
+try{ if(!localStorage.getItem(CHAVE)&&!localStorage.getItem('casa-v2')&&window.matchMedia('(prefers-reduced-motion: reduce)').matches) est.anim=false; }catch(e){}
 function salva(){ try{ localStorage.setItem(CHAVE,JSON.stringify(est)); }catch(e){} }
 var $=function(i){return document.getElementById(i)};
 function el(tag,cls,html){ var d=document.createElement(tag); if(cls) d.className=cls; if(html!=null) d.innerHTML=html; return d; }
 function txt(tag,cls,t){ var d=el(tag,cls); d.textContent=t; return d; }
-function aplicaAnim(){ document.body.classList.toggle('sem-animacao',!est.anim); }
+function aplicaAjustes(){ document.body.classList.toggle('sem-animacao',!est.anim); document.body.classList.toggle('turma',!!est.turma); }
 function depois(ms,fn){ return setTimeout(fn,est.anim?ms:0); }
 var ctx=null;
 function tom(freqs){
@@ -130,28 +156,48 @@ function fala(t){ try{ speechSynthesis.cancel(); var u=new SpeechSynthesisUttera
    ====================================================================== */
 var telaAtual='mapa';
 function mostra(id){
-  ['mapa','jogo','album','ajustes'].forEach(function(t){ $(t).classList.toggle('oculto',t!==id); });
+  ['mapa','jogo','album','minha','ajustes'].forEach(function(t){ $(t).classList.toggle('oculto',t!==id); });
   var t=$(id); t.classList.remove('entra'); void t.offsetWidth; t.classList.add('entra');
-  $('premio').classList.add('oculto'); $('escolha').classList.add('oculto');
-  [].forEach.call(document.querySelectorAll('.confete,.faisca'),function(x){ x.remove(); });
-  ['Mapa','Album','Ajustes'].forEach(function(n){ $('bt'+n).classList.toggle('ativo',id===n.toLowerCase()||(id==='jogo'&&n==='Mapa')); });
+  $('premio').classList.add('oculto'); $('ritual').classList.add('oculto');
+  [].forEach.call(document.querySelectorAll('.confete,.faisca,.fantasma'),function(x){ x.remove(); });
+  ['Mapa','Album','Minha','Ajustes'].forEach(function(n){ $('bt'+n).classList.toggle('ativo',id===n.toLowerCase()||(id==='jogo'&&n==='Mapa')); });
   try{ speechSynthesis.cancel(); }catch(e){}
   telaAtual=id; window.scrollTo(0,0);
 }
 function aberta(i){ return est.livre||i===0||!!est.feitas[i-1]||!!est.feitas[i]; }
 function proxima(){ for(var i=0;i<FASES.length;i++) if(!est.feitas[i]) return i; return -1; }
 function mundoCompleto(m){ return MUNDOS[m].fases.every(function(f){ return est.feitas[FASES.indexOf(f)]; }); }
+var CASA_SVG='<svg viewBox="0 0 120 110" aria-hidden="true"><path d="M10 52 60 12l50 40" fill="none" stroke="#E76F51" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 50v50h80V50" fill="#FFF3E6" stroke="#3B2F2F" stroke-width="4" stroke-linejoin="round"/><rect x="50" y="66" width="20" height="34" rx="3" fill="#F9C74F" stroke="#3B2F2F" stroke-width="3"/><circle cx="65" cy="84" r="2" fill="#3B2F2F"/><rect class="jan j1" x="28" y="58" width="16" height="16" rx="2" fill="#8ECAE6" stroke="#3B2F2F" stroke-width="3"/><rect class="jan j2" x="76" y="58" width="16" height="16" rx="2" fill="#8ECAE6" stroke="#3B2F2F" stroke-width="3"/><path d="M36 58v16M28 66h16M84 58v16M76 66h16" stroke="#3B2F2F" stroke-width="2"/><rect x="82" y="20" width="10" height="18" fill="#B08968" stroke="#3B2F2F" stroke-width="3"/><path d="M60 12 20 44" stroke="#E76F51" stroke-width="8" stroke-linecap="round"/></svg>';
+
+/* ---------- rituais: bom dia e boa noite ---------- */
+function bomDia(){
+  var r=$('ritual'); r.innerHTML='';
+  var c=el('div','ritual-cartao dia','<div class="ceu-ritual"><span class="sol-ritual"></span><span class="nuvem-ritual"></span></div>'+CASA_SVG);
+  c.appendChild(txt('h2',null,'Bom dia, casa!'));
+  c.appendChild(txt('p',null,'As máquinas estão acordando. Vamos descobrir quais precisam de energia hoje?'));
+  var b=el('button','bt-principal','Vamos!'); b.onclick=function(){ r.classList.add('oculto'); }; c.appendChild(b);
+  r.appendChild(c); r.classList.remove('oculto'); setTimeout(function(){ b.focus(); },50);
+}
+function boaNoite(){
+  var r=$('ritual'); r.innerHTML='';
+  var c=el('div','ritual-cartao noite','<div class="ceu-ritual noite"><span class="lua-ritual"></span><i></i><i></i><i></i><i></i><i></i></div>'+CASA_SVG);
+  c.appendChild(txt('h2',null,'Boa noite, casa!'));
+  c.appendChild(txt('p',null,'As luzes vão se apagando, uma a uma. A geladeira fica acordada cuidando da comida. Até a próxima aula!'));
+  var b=el('button','bt-principal','Até amanhã'); b.onclick=function(){ r.classList.add('oculto'); }; c.appendChild(b);
+  r.appendChild(c); r.classList.remove('oculto'); setTimeout(function(){ c.classList.add('apagando'); },300); setTimeout(function(){ b.focus(); },50);
+}
 
 /* ---------- mapa: a casa ---------- */
 function mapa(){
   var t=$('mapa'); t.innerHTML='';
   var p=proxima(),n=Object.keys(est.feitas).length;
   var cab=el('div','cabecalho');
-  cab.appendChild(el('div','casinha',CASA_SVG));
+  cab.appendChild(el('div','casinha'+(n>0?' acesa':''),CASA_SVG));
   var tx=el('div','cab-txt');
   tx.appendChild(txt('h1',null,n===0?'Que máquinas moram na sua casa?':p<0?'Você conhece a casa inteira!':'Bem-vindo de volta!'));
-  tx.appendChild(txt('p',null,n===0?'Em cada cômodo, toque em tudo que funciona com tomada, pilha ou bateria. Cada cômodo explorado vira uma figurinha. Comece pela porta amarela.'
-    :p<0?'Pode voltar em qualquer cômodo para brincar de novo.':'A porta amarela mostra onde você parou.'));
+  tx.appendChild(txt('p',null,n===0?'Em cada cômodo, procure tudo que funciona com tomada, pilha ou bateria. Quando você acha, a máquina liga! Cada cômodo explorado vira uma figurinha. Comece pela porta amarela.'
+    :p<0?'Pode voltar em qualquer cômodo para brincar de novo, ou decorar a sua casa com as figurinhas.':'A porta amarela mostra onde você parou. Repetir um cômodo que você gosta também vale!'));
+  var bn=el('button','bt-leve bt-noite',icone('moon',C.roxo)+'Encerrar o dia'); bn.onclick=boaNoite; tx.appendChild(bn);
   cab.appendChild(tx); t.appendChild(cab);
   var andares=el('div','andares');
   MUNDOS.forEach(function(m,mi){
@@ -163,7 +209,7 @@ function mapa(){
     var portas=el('div','portas');
     m.fases.forEach(function(f,fi){
       var gi=FASES.indexOf(f),b=el('button','porta');
-      b.innerHTML='<span class="porta-ic">'+(est.feitas[gi]?icone(f.f[0],f.f[1]):aberta(gi)?icone(f.ic,m.ic[1]):silhueta(f.ic))+'</span><span class="porta-nome">'+f.nome+'</span>';
+      b.innerHTML='<span class="janela"></span><span class="porta-ic">'+(est.feitas[gi]?icone(f.f[0],f.f[1]):aberta(gi)?icone(f.ic,m.ic[1]):silhueta(f.ic))+'</span><span class="porta-nome">'+f.nome+'</span>';
       if(est.feitas[gi]){ b.classList.add('feita'); b.setAttribute('aria-label',f.nome+', explorado'); }
       else if(aberta(gi)){ b.classList.add(gi===p?'atual':'aberta'); b.setAttribute('aria-label',f.nome); }
       else { b.classList.add('fechada'); b.setAttribute('aria-label',f.nome+', ainda fechado'); }
@@ -174,35 +220,63 @@ function mapa(){
   });
   t.appendChild(andares); mostra('mapa');
 }
-var CASA_SVG='<svg viewBox="0 0 120 110" aria-hidden="true"><path d="M10 52 60 12l50 40" fill="none" stroke="#E76F51" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 50v50h80V50" fill="#FFF3E6" stroke="#3B2F2F" stroke-width="4" stroke-linejoin="round"/><rect x="50" y="66" width="20" height="34" rx="3" fill="#F9C74F" stroke="#3B2F2F" stroke-width="3"/><circle cx="65" cy="84" r="2" fill="#3B2F2F"/><rect x="28" y="58" width="16" height="16" rx="2" fill="#8ECAE6" stroke="#3B2F2F" stroke-width="3"/><rect x="76" y="58" width="16" height="16" rx="2" fill="#8ECAE6" stroke="#3B2F2F" stroke-width="3"/><path d="M36 58v16M28 66h16M84 58v16M76 66h16" stroke="#3B2F2F" stroke-width="2"/><rect x="82" y="20" width="10" height="18" fill="#B08968" stroke="#3B2F2F" stroke-width="3"/><path d="M60 12 20 44" stroke="#E76F51" stroke-width="8" stroke-linecap="round"/></svg>';
 
 /* ======================================================================
    Jogo
    ====================================================================== */
-var atual=0,L=null,achou=0,alvo=0,erros=0,trava=false,pend=null,cards=[];
+var atual=0,L=null,achou=0,alvo=0,erros=0,trava=false,cards=[],selecionada=null;
+function instrucao(){
+  if(L.t==='ache') return alvo===1?'Três funcionam só com a gente. Toque na única que precisa de <em>tomada</em>, <em>pilha</em> ou <em>bateria</em>.':'Procure e toque em tudo que funciona com <em>tomada</em>, <em>pilha</em> ou <em>bateria</em>. Quando você acha, a máquina liga!';
+  if(L.t==='inverso') return alvo===1?'Três precisam de energia. Toque na única que funciona <em>sem energia</em> nenhuma.':'A luz acabou! Use a <em>lanterna</em> para enxergar e toque em tudo que funciona <em>sem energia</em> nenhuma.';
+  if(L.t==='dormir') return 'Hora de dormir. <em>Apague</em> o que não precisa ficar ligado. Algumas máquinas precisam ficar acordadas!';
+  if(L.t==='charada') return L.pista;
+  return 'Arraste cada coisa para a caixa certa: <em>tomada</em>, <em>pilha ou bateria</em>, ou <em>nenhuma</em>. Se preferir, toque na coisa e depois na caixa.';
+}
 function joga(i){
-  atual=i; L=FASES[i]; achou=0; erros=0; trava=false; pend=null; cards=[];
+  atual=i; L=FASES[i]; achou=0; erros=0; trava=false; cards=[]; selecionada=null;
   var m=MUNDOS[L.m];
   $('jogo').style.setProperty('--cor',m.cor);
   $('chipComodo').innerHTML=icone(L.ic,m.ic[1]); $('chipComodo').appendChild(txt('span',null,L.nome));
-  var ps=$('passos'); ps.innerHTML='';
-  m.fases.forEach(function(f,fi){ var d=el('i'); if(est.feitas[FASES.indexOf(f)]) d.className='f'; if(fi===L.i) d.className='a'; ps.appendChild(d); });
+  // prévia: o que já foi, onde estamos e o que vem depois
+  var pv=$('previa'); pv.innerHTML='';
+  m.fases.forEach(function(f,fi){ var d=el('span','pv'+(est.feitas[FASES.indexOf(f)]?' f':'')+(fi===L.i?' a':''),icone(f.ic,m.ic[1])); d.title=f.nome; pv.appendChild(d); });
   $('aviso').innerHTML='';
-  var perg=$('pergunta');
-  if(L.t==='ache'){ alvo=L.itens.filter(function(k){ return O[k][3]; }).length; perg.innerHTML='<b>'+L.nome+'</b><span>'+(alvo===1?'Três funcionam só com a gente. Toque na única que precisa de <em>tomada</em>, <em>pilha</em> ou <em>bateria</em>.':'Toque em tudo que funciona com <em>tomada</em>, <em>pilha</em> ou <em>bateria</em>.')+'</span>'; }
-  else if(L.t==='inverso'){ alvo=L.itens.filter(function(k){ return !O[k][3]; }).length; perg.innerHTML='<b>'+L.nome+'</b><span>'+(alvo===1?'Três precisam de energia. Toque na única que funciona <em>sem energia</em> nenhuma.':'Ao contrário: toque em tudo que funciona <em>sem energia</em> nenhuma.')+'</span>'; }
-  else { alvo=L.itens.length; perg.innerHTML='<b>'+L.nome+'</b><span>Toque em cada coisa e diga: <em>tomada</em>, <em>pilha ou bateria</em>, ou <em>nenhuma</em>?</span>'; }
+  if(L.t==='ache') alvo=L.itens.filter(function(k){ return O[k][3]; }).length;
+  else if(L.t==='inverso') alvo=L.itens.filter(function(k){ return !O[k][3]; }).length;
+  else if(L.t==='dormir') alvo=L.itens.filter(function(k){ return L.fica.indexOf(k)<0; }).length;
+  else if(L.t==='charada') alvo=1;
+  else alvo=L.itens.length;
+  $('pergunta').innerHTML='<b>'+(L.t==='charada'?'Quem sou eu?':L.nome)+'</b><span>'+instrucao()+'</span>';
   contador();
-  var gr=$('grade'); gr.innerHTML=''; gr.className='grade'+(L.itens.length>8?' dez':L.itens.length<=4?' quatro':'');
+  var cena=$('cena'); cena.innerHTML=''; cena.className='cena '+L.t+(L.itens.length<=4?' quatro':'')+(L.t==='inverso'&&alvo>1?' escuro':'');
+  cena.appendChild(el('div','parede')); cena.appendChild(el('div','chao')); cena.appendChild(el('div','janela-cena')); cena.appendChild(el('div','prateleira')); cena.appendChild(el('div','mesa'));
+  var mob=window.innerWidth<=640;
+  var lugares=L.itens.length<=4?(mob?[[30,30],[70,30],[30,66],[70,66]]:[[20,42],[40,42],[60,42],[80,42]]):(mob?LUGARES_MOB:LUGARES).slice(0,L.itens.length).sort(function(){ return Math.random()-.5; });
   L.itens.slice().sort(function(){ return Math.random()-.5; }).forEach(function(k,idx){
-    var o=O[k],b=el('button','coisa',icone(o[0],o[1])); b.appendChild(txt('span','t',o[2])); b.style.animationDelay=(idx*.05)+'s'; b._k=k;
-    b.setAttribute('aria-label',o[2]); b.onclick=function(){ toca(b); }; gr.appendChild(b); cards.push(b);
+    var o=O[k],b=el('button','coisa',icone(o[0],o[1])); b.appendChild(txt('span','t',o[2])); b._k=k; b.dataset.fx=FX[k]||'led';
+    b.style.left=lugares[idx][0]+'%'; b.style.top=lugares[idx][1]+'%'; b.style.setProperty('--gira',(Math.random()*10-5)+'deg'); b.style.animationDelay=(idx*.05)+'s';
+    b.setAttribute('aria-label',o[2]);
+    if(L.t==='dormir') b.classList.add('ligada');
+    b.onclick=function(){ toca(b); };
+    if(L.t==='classifica') arrastavel(b);
+    cena.appendChild(b); cards.push(b);
   });
+  if(L.t==='inverso'&&alvo>1){ var veu=el('div','lanterna'); cena.appendChild(veu); cena.style.setProperty('--lx','50%'); cena.style.setProperty('--ly','50%');
+    cena.onpointermove=function(ev){ var r=cena.getBoundingClientRect(); cena.style.setProperty('--lx',((ev.clientX-r.left)/r.width*100)+'%'); cena.style.setProperty('--ly',((ev.clientY-r.top)/r.height*100)+'%'); }; }
+  else cena.onpointermove=null;
+  var cx=$('caixas'); cx.innerHTML=''; cx.classList.toggle('oculto',L.t!=='classifica');
+  if(L.t==='classifica'){
+    [['t','plug','Tomada',C.tijolo],['p','battery-full','Pilha ou bateria',C.verde],[0,'hand-up','Nenhuma',C.madeira]].forEach(function(op){
+      var b=el('button','caixa',icone(op[1],op[3])); b.appendChild(txt('span',null,op[2])); b._v=op[0]; b.dataset.v=op[0]===0?'zero':op[0];
+      b.onclick=function(){ if(selecionada) classifica(selecionada,O[selecionada._k],op[0],b); else avisa('Primeiro toque numa coisa, depois na caixa. Ou arraste!'); };
+      cx.appendChild(b);
+    });
+  }
   mostra('jogo');
 }
 function contador(){
   var c=$('contador'); c.innerHTML='';
-  c.appendChild(txt('span',null,L.t==='classifica'?'Respondidas:':'Encontradas:'));
+  c.appendChild(txt('span',null,L.t==='classifica'?'Guardadas:':L.t==='dormir'?'Apagadas:':'Encontradas:'));
   for(var i=0;i<alvo;i++) c.appendChild(el('b',i<achou?'ok':'',i<achou?CHECK:''));
 }
 function avisa(t,tipo){ var a=$('aviso'); a.innerHTML=''; a.appendChild(el('div','aviso-caixa'+(tipo?' '+tipo:''),'<span>'+t+'</span>')); }
@@ -211,43 +285,67 @@ function faiscas(alvoEl){
   for(var i=0;i<10;i++){ var f=el('div','faisca',RAIO.replace('currentColor',cores[i%4])); var ang=i/10*Math.PI*2,dist=r.width*.5+Math.random()*30;
     f.style.left=(cx-8)+'px'; f.style.top=(cy-8)+'px'; f.style.setProperty('--dx',Math.cos(ang)*dist+'px'); f.style.setProperty('--dy',Math.sin(ang)*dist+'px'); document.body.appendChild(f); setTimeout(f.remove.bind(f),900); }
 }
+function liga(b,o){ b.classList.add('certa','ligada'); b.appendChild(el('span','selo-ok-c '+(o[3]||'zero'),o[3]?RAIO:CHECK)); faiscas(b); tom(TOM_FX[b.dataset.fx]||TOM_FX.led); }
+function termina(){ trava=true; depois(900,conclui); }
 function toca(b){
-  if(trava||b.classList.contains('certa')||b.classList.contains('feita')) return;
+  if(trava||b.classList.contains('certa')||b.classList.contains('feita')||b.classList.contains('desligada')) return;
   var o=O[b._k],energia=o[3];
-  if(L.t==='classifica'){ pend=b; abreEscolha(b,o); return; }
+  b.classList.add('vista');
+  if(L.t==='classifica'){ cards.forEach(function(x){ x.classList.remove('selecionada'); }); selecionada=b; b.classList.add('selecionada'); avisa('<b>'+o[2]+'</b>: agora toque na caixa certa, ou arraste até ela.'); return; }
+  if(L.t==='charada'){
+    if(b._k===L.certa){ liga(b,o); achou=1; contador(); avisa('Isso! <b>'+o[2]+'</b>. '+L.pista,'bom'); termina(); }
+    else { erros++; tom([330]); b.classList.add('fora'); treme(b); avisa('Hmm, <b>'+o[2]+'</b> não é. Leia a pista de novo com calma.'); }
+    return;
+  }
+  if(L.t==='dormir'){
+    if(L.fica.indexOf(b._k)>=0){ treme(b); tom([330]); avisa(FICA_TXT[b._k]||('<b>'+o[2]+'</b> precisa ficar ligada.')); b.classList.add('protesta'); setTimeout(function(){ b.classList.remove('protesta'); },900); return; }
+    b.classList.remove('ligada'); b.classList.add('desligada'); b.appendChild(el('span','selo-ok-c zzz',ZZZ)); achou++; tom([392,262]); contador();
+    var falta=alvo-achou; if(falta===0){ avisa('Tudo apagado! Só ficaram as que precisam. Boa noite, '+L.nome.toLowerCase()+'.','bom'); termina(); } else avisa('<b>'+o[2]+'</b> foi dormir. '+(falta===1?'Falta só mais uma.':'Faltam '+falta+'.'),'bom');
+    return;
+  }
   var quer=L.t==='ache'?!!energia:!energia;
   if(quer){
-    b.classList.add('certa'); b.appendChild(el('span','selo-ok-c'+(energia?' '+energia:' zero'),energia?RAIO:CHECK)); achou++; tom([523]); faiscas(b); contador();
-    var falta=alvo-achou;
-    if(falta===0){ trava=true; depois(700,conclui); }
-    else avisa((energia?'<b>'+o[2]+'</b> usa '+NOME_E[energia]+'. ':'<b>'+o[2]+'</b> não precisa de energia. ')+(falta===1?'Falta só mais uma!':'Faltam '+falta+'.'),'bom');
+    liga(b,o); achou++; contador();
+    var falta2=alvo-achou;
+    if(falta2===0) termina();
+    else avisa((energia?'<b>'+o[2]+'</b> ligou! Usa '+NOME_E[energia]+'. ':'<b>'+o[2]+'</b> funciona sem energia. ')+(falta2===1?'Falta só mais uma!':'Faltam '+falta2+'.'),'bom');
   } else {
-    erros++; tom([330]); b.classList.add('fora'); if(est.anim){ b.classList.remove('treme'); void b.offsetWidth; b.classList.add('treme'); }
+    erros++; tom([330]); b.classList.add('fora'); treme(b);
     avisa(L.t==='ache'?'<b>'+o[2]+'</b> não usa tomada nem pilha: funciona só com a gente. Procure outra!':'<b>'+o[2]+'</b> usa '+NOME_E[energia]+'. Aqui a gente procura o que funciona sem energia.');
   }
 }
-/* classificar: janelinha com as três opções */
-function abreEscolha(b,o){
-  var j=$('escolha'); j.innerHTML='';
-  var c=el('div','escolha-cartao'); c.appendChild(el('div','escolha-fig',icone(o[0],o[1]))); c.appendChild(txt('h3',null,o[2]));
-  c.appendChild(txt('p',null,'Como funciona?'));
-  var ops=el('div','escolha-ops');
-  [['t','plug','Tomada',C.tijolo],['p','battery-full','Pilha ou bateria',C.verde],[0,'hand-up','Nenhuma',C.madeira]].forEach(function(op){
-    var bt=el('button','escolha-op',icone(op[1],op[3])); bt.appendChild(txt('span',null,op[2]));
-    bt.onclick=function(){ classifica(b,o,op[0],bt); }; ops.appendChild(bt);
+function treme(b){ if(!est.anim) return; b.classList.remove('treme'); void b.offsetWidth; b.classList.add('treme'); }
+
+/* ---------- classificar arrastando ---------- */
+function arrastavel(b){
+  var fant=null,ini=null;
+  b.addEventListener('pointerdown',function(ev){
+    if(trava||b.classList.contains('feita')) return; ini={x:ev.clientX,y:ev.clientY}; b.setPointerCapture(ev.pointerId);
   });
-  c.appendChild(ops); var vf=el('button','bt-leve','Voltar'); vf.onclick=function(){ j.classList.add('oculto'); pend=null; }; c.appendChild(vf);
-  j.appendChild(c); j.classList.remove('oculto'); setTimeout(function(){ ops.firstChild.focus(); },40);
+  b.addEventListener('pointermove',function(ev){
+    if(!ini) return;
+    if(!fant){ if(Math.hypot(ev.clientX-ini.x,ev.clientY-ini.y)<8) return;
+      fant=el('div','fantasma',b.innerHTML); document.body.appendChild(fant); b.classList.add('arrastando'); cards.forEach(function(x){ x.classList.remove('selecionada'); }); selecionada=b; }
+    fant.style.left=ev.clientX+'px'; fant.style.top=ev.clientY+'px';
+    var sob=caixaSob(ev.clientX,ev.clientY); [].forEach.call($('caixas').children,function(c){ c.classList.toggle('sobre',c===sob); });
+  });
+  function solta(ev){
+    if(!ini) return; ini=null;
+    if(fant){ var sob=caixaSob(ev.clientX,ev.clientY); fant.remove(); fant=null; b.classList.remove('arrastando'); [].forEach.call($('caixas').children,function(c){ c.classList.remove('sobre'); });
+      if(sob) classifica(b,O[b._k],sob._v,sob); }
+  }
+  b.addEventListener('pointerup',solta); b.addEventListener('pointercancel',solta);
 }
+function caixaSob(x,y){ var e=document.elementFromPoint(x,y); return e&&e.closest?e.closest('.caixa'):null; }
 function classifica(b,o,v,bt){
+  if(trava||b.classList.contains('feita')) return;
   if(v===o[3]){
-    tom([523]); bt.classList.add('certa');
-    depois(450,function(){ $('escolha').classList.add('oculto'); b.classList.add('feita'); b.appendChild(el('span','selo-ok-c'+(v?' '+v:' zero'),v?RAIO:CHECK)); faiscas(b); achou++; contador();
-      var falta=alvo-achou; if(falta===0){ trava=true; depois(700,conclui); } else avisa('<b>'+o[2]+'</b>: '+NOME_E[v]+'. '+(falta===1?'Falta só mais uma!':'Faltam '+falta+'.'),'bom'); });
+    tom([523]); bt.classList.add('acertou'); setTimeout(function(){ bt.classList.remove('acertou'); },600);
+    b.classList.remove('selecionada'); b.classList.add('feita'); if(v) b.classList.add('ligada'); b.appendChild(el('span','selo-ok-c '+(v||'zero'),v?RAIO:CHECK)); faiscas(b); selecionada=null; achou++; contador();
+    var falta=alvo-achou; if(falta===0) termina(); else avisa('<b>'+o[2]+'</b>: '+NOME_E[v]+'. '+(falta===1?'Falta só mais uma!':'Faltam '+falta+'.'),'bom');
   } else {
-    erros++; tom([330]); bt.classList.add('fora'); bt.disabled=true;
-    var dica=o[3]==='t'?'Pense: essa máquina fica presa por um fio na parede?':o[3]==='p'?'Pense: essa máquina anda com você, sem fio?':'Pense: essa coisa faz alguma coisa sozinha, ou só com a gente?';
-    var d=$('escolha').querySelector('.escolha-dica'); if(!d){ d=el('p','escolha-dica'); $('escolha').querySelector('.escolha-cartao').insertBefore(d,$('escolha').querySelector('.escolha-ops')); } d.textContent=dica;
+    erros++; tom([330]); treme(bt); treme(b);
+    avisa('<b>'+o[2]+'</b> não vai nessa caixa. '+(o[3]==='t'?'Pense: ela fica presa por um fio na parede?':o[3]==='p'?'Pense: ela anda com você, sem fio?':'Pense: ela faz alguma coisa sozinha, ou só com a gente?'));
   }
 }
 
@@ -258,14 +356,19 @@ function conclui(){
   var p=$('premio'); p.innerHTML='';
   var c=el('div','cartao'); c.style.setProperty('--cor',m.cor);
   c.appendChild(txt('h2',null,ELOGIOS[Math.floor(Math.random()*ELOGIOS.length)])); c.lastChild.id='premioTit';
-  var resumo=L.t==='ache'?(alvo===1?'Você achou a única que precisa de energia.':'Em "'+L.nome+'" você achou as '+alvo+' máquinas que usam energia.'):L.t==='inverso'?(alvo===1?'Você achou a única que funciona sem energia.':'Você achou as '+alvo+' coisas que funcionam sem energia nenhuma.'):'Você disse certinho como cada uma das '+alvo+' coisas funciona.';
+  var resumo=L.t==='ache'?(alvo===1?'Você achou a única que precisa de energia.':'Em "'+L.nome+'" você ligou as '+alvo+' máquinas que usam energia.')
+    :L.t==='inverso'?(alvo===1?'Você achou a única que funciona sem energia.':'Mesmo no escuro, você achou as '+alvo+' coisas que funcionam sem energia.')
+    :L.t==='dormir'?'Você apagou o que precisava e deixou acordado o que não pode dormir.'
+    :L.t==='charada'?'Você desvendou a charada!':'Você guardou certinho cada uma das '+alvo+' coisas.';
   c.appendChild(txt('p','explica',resumo));
-  c.appendChild(el('div','fig-grande','<div class="fg-in" style="--cor-selo:'+L.f[1]+'">'+icone(L.f[0],L.f[1])+'</div>'));
+  c.appendChild(el('div','fig-grande','<div class="fg-in" style="--cor-selo:'+(m.selo||L.f[1])+'">'+icone(L.f[0],L.f[1])+'</div>'));
   c.appendChild(el('div','nome-fig',(novo?'Figurinha nova: ':'Você já tem: ')+'<b></b>')); c.lastChild.lastChild.textContent=L.f[2];
+  if(novo) c.appendChild(txt('p','sub','Ela já está na sua casa para decorar!'));
   if(fimMundo&&!ult) c.appendChild(txt('p','sub','Você completou "'+m.nome+'"!'));
   if(ult) c.appendChild(txt('p','sub','Casa completa! Agora você sabe o que precisa de energia e o que funciona só com a gente.'));
   var lb=el('div','linha-bts');
   var bp=el('button','bt-principal',ult?'Ver meu álbum':'Continuar'); bp.onclick=ult?album:function(){ joga(atual+1); }; lb.appendChild(bp);
+  var br=el('button','bt-leve',icone('refresh',C.verde)+'De novo'); br.onclick=function(){ joga(atual); }; lb.appendChild(br);
   var bm=el('button','bt-leve',icone('home',C.laranja)+'Casa'); bm.onclick=mapa; lb.appendChild(bm);
   c.appendChild(lb); p.appendChild(c); p.classList.remove('oculto'); confete();
   setTimeout(function(){ bp.focus(); },60);
@@ -296,6 +399,44 @@ function album(){
   mostra('album');
 }
 
+/* ======================================================================
+   Minha casa: decorar com as figurinhas (sem certo nem errado)
+   ====================================================================== */
+var COMODOS_MINHA=[['cozinha','Cozinha','cooking-pot'],['sala','Sala','sofa'],['quarto','Quarto','single-bed'],['quintal','Quintal','tree-one']];
+var CORES_PAREDE=['#FFE8D1','#E3F2D3','#E9E1F7','#DDF1FA','#FFE0E0','#FFF1C9'];
+var escolhida=null;
+function minhaDados(){ if(!est.minha){ est.minha={}; COMODOS_MINHA.forEach(function(c,i){ est.minha[c[0]]={cor:i,itens:[]}; }); } return est.minha; }
+function minha(){
+  var d=minhaDados(),t=$('minha'); t.innerHTML=''; escolhida=null;
+  t.appendChild(el('h2','titulo-tela',CASA_SVG+'<span>Minha casa</span>'));
+  var ganhas=[]; FASES.forEach(function(f,i){ if(est.feitas[i]) ganhas.push(f.f); });
+  t.appendChild(txt('p','texto-tela',ganhas.length?'Toque numa figurinha e depois num cômodo para colocar. Toque numa figurinha da parede para tirar. Não tem certo nem errado: a casa é sua!':'Explore os cômodos para ganhar figurinhas. Depois, decore a sua casa com elas!'));
+  var pal=el('div','paleta');
+  ganhas.forEach(function(f){
+    var b=el('button','adesivo',icone(f[0],f[1])); b.title=f[2]; b.setAttribute('aria-label',f[2]);
+    b.onclick=function(){ [].forEach.call(pal.children,function(x){ x.classList.remove('escolhido'); }); if(escolhida===f){ escolhida=null; return; } escolhida=f; b.classList.add('escolhido'); };
+    pal.appendChild(b);
+  });
+  t.appendChild(pal);
+  var casa=el('div','casa-minha');
+  COMODOS_MINHA.forEach(function(c){
+    var dc=d[c[0]],q=el('section','quarto-minha'); q.style.background=CORES_PAREDE[dc.cor];
+    var topo=el('div','qm-topo',icone(c[2],C.madeira)+'<b>'+c[1]+'</b>');
+    var cores=el('div','qm-cores');
+    CORES_PAREDE.forEach(function(cor,i){ var b=el('button','qm-cor'+(dc.cor===i?' atual':'')); b.style.background=cor; b.setAttribute('aria-label','Parede cor '+(i+1)); b.onclick=function(){ dc.cor=i; salva(); minha(); }; cores.appendChild(b); });
+    topo.appendChild(cores); q.appendChild(topo);
+    var area=el('div','qm-area');
+    dc.itens.forEach(function(f,idx){ var b=el('button','adesivo colocado',icone(f[0],f[1])); b.style.setProperty('--gira',((idx*37)%14-7)+'deg'); b.title='Tirar '+f[2]; b.onclick=function(ev){ ev.stopPropagation(); dc.itens.splice(idx,1); salva(); minha(); }; area.appendChild(b); });
+    if(!dc.itens.length) area.appendChild(txt('span','qm-vazio','Toque aqui para colocar uma figurinha'));
+    area.onclick=function(){ if(!escolhida){ avisaMinha(ganhas.length?'Primeiro escolha uma figurinha lá em cima.':'Explore os cômodos para ganhar figurinhas.'); return; } if(dc.itens.length>=8){ avisaMinha('Esse cômodo já está cheinho! Tire uma para colocar outra.'); return; } dc.itens.push(escolhida); salva(); tom([523,659]); minha(); };
+    q.appendChild(area); casa.appendChild(q);
+  });
+  t.appendChild(casa);
+  var av=el('div','aviso'); av.id='avisoMinha'; t.appendChild(av);
+  mostra('minha');
+}
+function avisaMinha(t){ var a=$('avisoMinha'); if(!a) return; a.innerHTML=''; a.appendChild(el('div','aviso-caixa','<span>'+t+'</span>')); }
+
 /* ---------- ajustes ---------- */
 function ajustes(){
   var t=$('ajustes'); t.innerHTML='';
@@ -308,25 +449,28 @@ function ajustes(){
     b.onclick=function(){ est[prop]=!est[prop]; salva(); b.setAttribute('aria-checked',est[prop]?'true':'false'); if(fn) fn(); };
     box.appendChild(b);
   }
-  chave('bell-ring',C.amarelo,'Sons','Sons baixinhos ao tocar nas coisas.','som');
-  chave('magic',C.roxo,'Animações','Faíscas e movimentos suaves. Desligue se incomodar.','anim',aplicaAnim);
+  chave('bell-ring',C.amarelo,'Sons','Cada máquina faz um sonzinho quando liga.','som');
+  chave('magic',C.roxo,'Animações','Máquinas girando, vapor, faíscas. Desligue se incomodar.','anim',aplicaAjustes);
+  chave('projector',C.laranja,'Modo turma (projetor)','Letras e botões maiores para jogar com a turma toda.','turma',aplicaAjustes);
   chave('unlock',C.verde,'Todos os cômodos abertos','Para o professor escolher qualquer fase.','livre');
-  var r=el('button','ajuste perigo',icone('refresh',C.tijolo)); var rt=txt('div','txt','Recomeçar do zero'); rt.appendChild(txt('small',null,'Apaga as figurinhas deste aparelho.')); r.appendChild(rt);
-  r.onclick=function(){ if(confirm('Apagar todas as figurinhas deste aparelho?')){ est.feitas={}; salva(); mapa(); } };
+  var r=el('button','ajuste perigo',icone('refresh',C.tijolo)); var rt=txt('div','txt','Recomeçar do zero'); rt.appendChild(txt('small',null,'Apaga as figurinhas e a decoração deste aparelho.')); r.appendChild(rt);
+  r.onclick=function(){ if(confirm('Apagar todas as figurinhas e a decoração deste aparelho?')){ est.feitas={}; est.minha=null; salva(); mapa(); } };
   box.appendChild(r); t.appendChild(box); mostra('ajustes');
 }
 
 /* ---------- início ---------- */
-aplicaAnim();
+aplicaAjustes();
 $('btInicio').insertAdjacentHTML('afterbegin',CASA_SVG);
 $('btMapa').insertAdjacentHTML('afterbegin',icone('home',C.laranja));
 $('btAlbum').insertAdjacentHTML('afterbegin',icone('stickers',C.amarelo));
+$('btMinha').insertAdjacentHTML('afterbegin',icone('paint',C.rosa));
 $('btAjustes').insertAdjacentHTML('afterbegin',icone('setting-two',C.azul));
 $('btVoltar').insertAdjacentHTML('afterbegin',icone('arrow-left','#fff'));
 $('btOuvir').innerHTML=icone('volume-up',C.azul);
-$('btInicio').onclick=mapa; $('btMapa').onclick=mapa; $('btVoltar').onclick=mapa; $('btAlbum').onclick=album; $('btAjustes').onclick=ajustes;
+$('btInicio').onclick=mapa; $('btMapa').onclick=mapa; $('btVoltar').onclick=mapa; $('btAlbum').onclick=album; $('btMinha').onclick=minha; $('btAjustes').onclick=ajustes;
 $('btOuvir').onclick=function(){ fala($('pergunta').textContent); };
-document.addEventListener('keydown',function(ev){ if(ev.key==='Escape'){ if(!$('escolha').classList.contains('oculto')){ $('escolha').classList.add('oculto'); pend=null; } else if(!$('premio').classList.contains('oculto')) mapa(); } });
-window.__jogo={FASES:FASES,O:O,est:est};
+document.addEventListener('keydown',function(ev){ if(ev.key==='Escape'){ if(!$('ritual').classList.contains('oculto')) $('ritual').classList.add('oculto'); else if(!$('premio').classList.contains('oculto')) mapa(); } });
+window.__jogo={FASES:FASES,O:O,est:est,MUNDOS:MUNDOS};
 mapa();
+try{ if(!sessionStorage.getItem('casa-bomdia')){ sessionStorage.setItem('casa-bomdia','1'); bomDia(); } }catch(e){}
 })();

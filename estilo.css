@@ -90,10 +90,12 @@ main{max-width:1000px;margin:0 auto;padding:22px 16px 60px}
 .bt-voltar svg{width:28px;height:28px}
 .chip{display:flex;align-items:center;gap:8px;background:var(--papel);border-radius:40px;padding:6px 14px 6px 6px;box-shadow:0 3px 0 var(--borda-2);font-family:var(--titulo);font-weight:600;font-size:15px}
 .chip svg{width:32px;height:32px;padding:4px;border-radius:50%;background:var(--cor)}
-.passos{display:flex;gap:6px;margin-left:auto}
-.passos i{width:13px;height:13px;border-radius:50%;background:var(--borda-2);display:block;transition:all .3s}
-.passos i.f{background:var(--verde)}
-.passos i.a{width:28px;border-radius:10px;background:var(--amarelo);box-shadow:0 0 0 3px #fff,0 0 0 5px var(--amarelo)}
+.previa{display:flex;gap:6px;margin-left:auto;align-items:center}
+.previa .pv{width:34px;height:34px;border-radius:10px;background:var(--papel);opacity:.45;display:flex;align-items:center;justify-content:center;border:2px solid var(--borda-2);transition:all .3s}
+.previa .pv svg{width:22px;height:22px}
+.previa .pv.f{opacity:1;border-color:var(--verde);background:var(--verde-suave)}
+.previa .pv.a{opacity:1;width:44px;height:44px;border-color:var(--amarelo);background:var(--amarelo-suave);box-shadow:0 0 0 3px #fff,0 0 0 5px var(--amarelo)}
+.previa .pv.a svg{width:28px;height:28px}
 .bt-redondo{width:52px;height:52px;border-radius:50%;background:var(--papel);box-shadow:0 4px 0 var(--borda-2);display:flex;align-items:center;justify-content:center;transition:transform .2s var(--mola)}
 .bt-redondo:hover{transform:translateY(-2px)}
 .bt-redondo svg{width:32px;height:32px}
@@ -206,4 +208,124 @@ body.sem-animacao *,body.sem-animacao *::before,body.sem-animacao *::after{anima
   .coisa{min-height:110px}
   .porta{width:calc(50% - 6px)}
   .escolha-op{min-width:100px;font-size:15px}
+}
+
+/* ================= a cena do cômodo ================= */
+.cena{position:relative;width:100%;max-width:900px;aspect-ratio:16/9;border-radius:28px;overflow:hidden;border:5px solid #fff;box-shadow:var(--sombra);background:var(--cor)}
+.cena .parede{position:absolute;inset:0 0 28% 0;background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),repeating-linear-gradient(90deg,rgba(255,255,255,.12) 0 2px,transparent 2px 40px),var(--cor)}
+.cena .chao{position:absolute;left:0;right:0;bottom:0;height:28%;background:repeating-linear-gradient(90deg,#D9B98F 0 60px,#CFAA7C 60px 62px),#D9B98F;border-top:4px solid #B08968}
+.cena .janela-cena{position:absolute;left:3%;top:2%;width:8%;aspect-ratio:1;border-radius:10px;background:linear-gradient(180deg,#BEE3F8,#E3F5FF);border:5px solid #fff;box-shadow:0 4px 0 rgba(0,0,0,.08)}
+.cena .janela-cena::before,.cena .janela-cena::after{content:"";position:absolute;background:#fff}
+.cena .janela-cena::before{left:50%;top:0;bottom:0;width:4px;margin-left:-2px}
+.cena .janela-cena::after{top:50%;left:0;right:0;height:4px;margin-top:-2px}
+.cena .prateleira{position:absolute;left:22%;right:6%;top:33%;height:8px;border-radius:4px;background:#B08968;box-shadow:0 6px 0 rgba(0,0,0,.07)}
+.cena .mesa{position:absolute;left:6%;right:6%;top:74%;height:10px;border-radius:5px;background:#B08968;box-shadow:0 8px 0 rgba(0,0,0,.06)}
+.cena.quatro .prateleira,.cena.quatro .mesa{display:none}
+.cena .coisa{position:absolute;transform:translate(-50%,-50%) rotate(var(--gira,0deg));width:clamp(64px,11.5%,104px);min-height:0;padding:8px 4px 4px;border-radius:18px;background:rgba(255,255,255,.92);box-shadow:0 4px 0 rgba(59,47,47,.18),0 10px 16px -10px rgba(59,47,47,.5);
+  display:flex;flex-direction:column;align-items:center;gap:2px;transition:transform .2s var(--mola),opacity .3s,filter .4s,background .3s;animation:surge .5s var(--mola) backwards;z-index:1}
+.cena.quatro .coisa{width:clamp(88px,17%,150px);padding:14px 6px 8px}
+.cena .coisa svg.ic{width:100%;height:auto;aspect-ratio:1}
+.cena .coisa .t{font-family:var(--titulo);font-weight:600;font-size:clamp(10px,1.4vw,14px);line-height:1.1;text-align:center;max-height:0;overflow:hidden;opacity:0;transition:all .25s}
+.cena .coisa.vista .t,.cena .coisa:hover .t,.cena.quatro .coisa .t{max-height:34px;opacity:1}
+.cena .coisa:hover{transform:translate(-50%,-56%) rotate(var(--gira,0deg)) scale(1.06);z-index:3}
+.cena .coisa.fora{opacity:.5;filter:grayscale(.8)}
+.cena .coisa.treme{animation:treme .45s ease!important}
+.cena .coisa.selecionada{box-shadow:0 0 0 4px var(--amarelo),0 10px 16px -10px rgba(59,47,47,.5);z-index:3}
+.cena .coisa.arrastando{opacity:.35}
+@keyframes surge{from{opacity:0;transform:translate(-50%,-30%) scale(.5)}to{opacity:1;transform:translate(-50%,-50%) rotate(var(--gira,0deg))}}
+/* máquina ligada: brilho + efeito de cada tipo */
+.coisa.ligada{background:#FFF9E8;box-shadow:0 0 0 3px var(--amarelo),0 0 22px rgba(249,199,79,.7)}
+.coisa.ligada::before{content:"";position:absolute;top:6px;left:6px;width:8px;height:8px;border-radius:50%;background:#4ADE80;box-shadow:0 0 8px #4ADE80;animation:pisca 1.2s ease-in-out infinite}
+.coisa.ligada[data-fx=giro] svg.ic{animation:giro 1.6s linear infinite}
+.coisa.ligada[data-fx=luz]{box-shadow:0 0 0 3px var(--amarelo),0 0 40px 10px rgba(249,199,79,.75)}
+.coisa.ligada[data-fx=luz] svg.ic{filter:drop-shadow(0 0 10px #FFD166);animation:brilha 1.8s ease-in-out infinite}
+.coisa.ligada[data-fx=tela] svg.ic{animation:tela 2.4s ease-in-out infinite;filter:drop-shadow(0 0 8px #8ECAE6)}
+.coisa.ligada[data-fx=vapor]::after{content:"";position:absolute;left:50%;top:-6px;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:-14px -8px 0 -2px rgba(255,255,255,.7),14px -12px 0 -1px rgba(255,255,255,.6);animation:vapor 1.6s ease-out infinite}
+.coisa.ligada[data-fx=som]::after{content:"";position:absolute;inset:-8px;border-radius:24px;border:3px solid rgba(69,123,157,.5);animation:onda 1.4s ease-out infinite}
+.coisa.desligada{background:#EDE6F7;filter:saturate(.4) brightness(.9)}
+.coisa.protesta{box-shadow:0 0 0 4px var(--tijolo),0 0 24px rgba(231,111,81,.6)!important}
+@keyframes pisca{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes giro{to{transform:rotate(360deg)}}
+@keyframes brilha{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes tela{0%,100%{filter:drop-shadow(0 0 6px #8ECAE6)}50%{filter:drop-shadow(0 0 14px #5FD0FF)}}
+@keyframes vapor{0%{transform:translate(-50%,0) scale(.6);opacity:.9}100%{transform:translate(-50%,-26px) scale(1.3);opacity:0}}
+@keyframes onda{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+/* apagão: lanterna */
+.cena.escuro .parede,.cena.escuro .chao,.cena.escuro .janela-cena{filter:brightness(.55) saturate(.6)}
+.cena.escuro .coisa{background:rgba(255,255,255,.85)}
+.cena .lanterna{position:absolute;inset:0;z-index:5;pointer-events:none;background:radial-gradient(circle at var(--lx,50%) var(--ly,50%),rgba(6,10,40,0) 0,rgba(6,10,40,0) 70px,rgba(6,10,40,.55) 120px,rgba(6,10,40,.93) 190px);transition:background .05s}
+.cena.escuro::after{content:"";position:absolute;left:var(--lx,50%);top:var(--ly,50%);width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;pointer-events:none;z-index:6;box-shadow:inset 0 0 30px rgba(255,236,170,.35);background:radial-gradient(circle,rgba(255,236,170,.18) 0,rgba(255,236,170,0) 70%)}
+/* boa noite: cena escurece devagar */
+.cena.dormir .parede{background:linear-gradient(180deg,#3F3A6B,#5A5490)}
+.cena.dormir .janela-cena{background:radial-gradient(circle at 30% 30%,#FFF1B8 0 12%,transparent 13%),#1E2555}
+.cena.dormir .chao{filter:brightness(.6)}
+/* caixas para classificar */
+.caixas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;width:100%;max-width:900px}
+.caixa{flex:1;min-width:150px;background:var(--papel);border:4px dashed var(--borda-2);border-radius:22px;padding:12px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;font-family:var(--titulo);font-weight:600;font-size:17px;transition:transform .2s var(--mola),border-color .2s,background .2s}
+.caixa svg{width:48px;height:48px}
+.caixa.sobre{border-color:var(--amarelo);background:var(--amarelo-suave);transform:scale(1.05)}
+.caixa.acertou{border-color:var(--verde);background:var(--verde-suave);animation:pop .5s var(--mola)}
+.caixa.treme{animation:treme .45s ease}
+.fantasma{position:fixed;z-index:80;width:90px;transform:translate(-50%,-50%) rotate(-4deg) scale(1.1);pointer-events:none;background:#fff;border-radius:18px;padding:8px 4px 4px;box-shadow:0 14px 30px -10px rgba(0,0,0,.5);display:flex;flex-direction:column;align-items:center}
+.fantasma svg{width:100%;height:auto}
+.fantasma .t{font-family:var(--titulo);font-size:12px;text-align:center}
+/* portas do mapa com janelinha acesa */
+.porta .janela{position:absolute;left:10px;top:10px;width:14px;height:14px;border-radius:3px;background:#DDD3CB;border:2px solid var(--borda-2)}
+.porta.feita .janela{background:radial-gradient(circle,#FFF1B8,#F9C74F);border-color:var(--amarelo-escuro);box-shadow:0 0 10px rgba(249,199,79,.9)}
+.casinha .jan{transition:fill .6s}
+.casinha.acesa .jan{fill:#FFE08A}
+.bt-noite{margin-top:10px;align-self:flex-start}
+/* rituais */
+.ritual-cartao{margin:auto;width:100%;max-width:520px;background:var(--papel);border-radius:32px;box-shadow:0 30px 70px -20px rgba(59,47,47,.5);padding:0 24px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;overflow:hidden;animation:sobe .55s var(--mola)}
+.ritual-cartao>svg{width:150px;margin-top:-70px;position:relative;z-index:1}
+.ritual-cartao h2{font-family:var(--titulo);font-weight:700;font-size:clamp(26px,6vw,36px)}
+.ritual-cartao p{color:var(--tinta-2);font-size:17px;line-height:1.5;max-width:420px}
+.ceu-ritual{width:calc(100% + 48px);height:170px;margin:0 -24px;background:linear-gradient(180deg,#8ECAE6,#DDF1FA);position:relative;overflow:hidden}
+.ceu-ritual.noite{background:linear-gradient(180deg,#141A4A,#3F3A6B)}
+.sol-ritual{position:absolute;left:50%;bottom:-40px;width:110px;height:110px;margin-left:-55px;border-radius:50%;background:radial-gradient(circle,#FFF1B8,#F9C74F 70%);box-shadow:0 0 60px 20px rgba(249,199,79,.5);animation:nasce 1.8s ease-out forwards}
+.nuvem-ritual{position:absolute;left:12%;top:40px;width:80px;height:26px;border-radius:30px;background:#fff;animation:passa 12s linear infinite}
+.nuvem-ritual::before{content:"";position:absolute;left:14px;top:-18px;width:40px;height:40px;border-radius:50%;background:#fff}
+.lua-ritual{position:absolute;right:18%;top:26px;width:60px;height:60px;border-radius:50%;background:#FFF1B8;box-shadow:inset -14px -6px 0 #E6D28F,0 0 30px rgba(255,241,184,.6)}
+.ceu-ritual.noite i{position:absolute;width:5px;height:5px;border-radius:50%;background:#fff;animation:pisca 2s ease-in-out infinite}
+.ceu-ritual.noite i:nth-child(2){left:15%;top:30%}.ceu-ritual.noite i:nth-child(3){left:35%;top:20%;animation-delay:.4s}.ceu-ritual.noite i:nth-child(4){left:55%;top:45%;animation-delay:.8s}.ceu-ritual.noite i:nth-child(5){left:70%;top:15%;animation-delay:1.2s}.ceu-ritual.noite i:nth-child(6){left:88%;top:55%;animation-delay:.6s}
+.ritual-cartao.noite>svg .jan{fill:#FFE08A;transition:fill 1.2s}
+.ritual-cartao.noite.apagando>svg .j1{fill:#2A2F5E;transition-delay:.8s}
+.ritual-cartao.noite.apagando>svg .j2{fill:#2A2F5E;transition-delay:1.8s}
+@keyframes nasce{from{transform:translateY(80px)}to{transform:translateY(0)}}
+@keyframes passa{from{transform:translateX(-120px)}to{transform:translateX(520px)}}
+/* minha casa */
+.paleta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;background:var(--papel);border-radius:22px;padding:12px;box-shadow:var(--sombra);max-width:880px;width:100%;min-height:76px}
+.adesivo{width:56px;height:56px;border-radius:50%;background:#fff;border:4px solid var(--amarelo);display:flex;align-items:center;justify-content:center;transition:transform .2s var(--mola);box-shadow:0 4px 10px -4px rgba(0,0,0,.3)}
+.adesivo svg{width:64%;height:64%}
+.adesivo:hover{transform:scale(1.1) rotate(-6deg)}
+.adesivo.escolhido{border-color:var(--verde);box-shadow:0 0 0 4px var(--verde-suave),0 0 0 7px var(--verde);transform:scale(1.12)}
+.casa-minha{width:100%;max-width:880px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.quarto-minha{border:4px solid #fff;border-radius:24px;box-shadow:var(--sombra);min-height:220px;display:flex;flex-direction:column;overflow:hidden;transition:background .4s}
+.qm-topo{display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(255,255,255,.55);font-family:var(--titulo);font-weight:600;font-size:17px}
+.qm-topo svg{width:30px;height:30px}
+.qm-cores{margin-left:auto;display:flex;gap:4px}
+.qm-cor{width:22px;height:22px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.qm-cor.atual{box-shadow:0 0 0 3px var(--tinta)}
+.qm-area{flex:1;display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start;padding:14px;cursor:pointer;min-height:150px;background:linear-gradient(180deg,transparent 70%,rgba(176,137,104,.35) 70%)}
+.qm-area .adesivo.colocado{transform:rotate(var(--gira,0deg));width:62px;height:62px}
+.qm-area .adesivo.colocado:hover{transform:rotate(var(--gira,0deg)) scale(1.08)}
+.qm-vazio{align-self:center;margin:auto;color:var(--tinta-2);font-size:15px;text-align:center;padding:0 10px}
+/* modo turma */
+body.turma{font-size:118%}
+body.turma .pergunta b{font-size:clamp(28px,4.6vw,40px)}
+body.turma .pergunta span{font-size:clamp(18px,3vw,24px)}
+body.turma .cena .coisa{width:clamp(80px,13.5%,124px)}
+body.turma .cena .coisa .t{max-height:34px;opacity:1;font-size:clamp(12px,1.6vw,16px)}
+body.turma .aviso-caixa{font-size:clamp(19px,3vw,24px)}
+body.turma .caixa{font-size:21px}
+@media (max-width:640px){
+  .cena{aspect-ratio:4/5}
+  .cena .coisa{width:clamp(60px,20%,84px)}
+  .cena.quatro .coisa{width:clamp(76px,30%,110px)}
+  .cena .coisa .t{max-height:34px;opacity:1}
+  .casa-minha{grid-template-columns:1fr}
+  .previa .pv{width:26px;height:26px}
+  .previa .pv svg{width:16px;height:16px}
+  .previa .pv.a{width:34px;height:34px}
+  .bt-noite{align-self:center}
 }
